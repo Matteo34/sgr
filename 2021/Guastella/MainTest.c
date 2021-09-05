@@ -9,11 +9,11 @@
 u_int32_t errore;
 /*struttura dati utilizzata per eseguire il test*/
 typedef struct {
-    int *valore;        //c=colonne, p = profondità
-    char **nome;
-    int n,              //numero di stringhe target da controllare
-        target;         //numero totale di stringhe lette
-    char * nome_test;
+    int *valore;        //array di interi, contiene le occorrenze della stringa indicata da nome[i]
+    char **nome;        //Array di stringhe da ricercare
+    int n,              //numero totale di inserimenti che un cmsketch ha effettuato leggendo un file
+        target;         //dimensione dell'array **nome
+    char * nome_test;   //nome del file di test
 } test_t;
 
 void check_value(test_t *test, cmsketch_t * table );
@@ -187,7 +187,7 @@ void check_value(test_t *test, cmsketch_t * table ){
     if(count_table(table)/table->c != test->n) {printf("errore : il numero di elementi non combacia  cardinalità : %d check : %d  \n ", test->n, count_table(table)/table->c);errore++;}
 }
 
-//Esegue la somma di tutti le righe e le colonne del Count Min Sketch
+//Esegue la somma di tutte le righe e le colonne del Count Min Sketch
 u_int32_t count_table(cmsketch_t * table ){
      u_int32_t c_tabella = 0;
         for(int i = 0 ; i< table->r; i++){        
